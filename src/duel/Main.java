@@ -28,7 +28,7 @@ public class Main {
 
         
         // Creation of some basic nodes to simulate the start of the story
-        InnerNode bienvenue = new InnerNode(id++,depth++, "Bienvenue aux JO.", EmptyNodeList);
+        InnerNode bienvenue = new InnerNode(id++,depth++, "Bienvenue aux JO 2024.", EmptyNodeList);
         bienvenue.display();
         Event basicEvent1= new InnerNode(id++,0,"",EmptyNodeList);
         Event soundEvent = new SoundNode(basicEvent1, "essai.wav");
