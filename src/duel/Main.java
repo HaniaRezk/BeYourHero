@@ -1,5 +1,6 @@
 package duel;
 import java.util.Scanner;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -172,8 +173,8 @@ public class Main {
         // first branch of the story where the fan goes to discover Paris
         InnerNode SSnode21= new InnerNode(id++,depthSupporteur,"Visiter la tour eiffel", EmptyNodeList);
         InnerNode SSnode22= new InnerNode(id++,depthSupporteur,"Visiter l'arc de triomphe", EmptyNodeList);
-        SSnode21.addChild(SSnode21);
-        SSnode21.addChild(SSnode22);
+        SSnode2.addChild(SSnode21);
+        SSnode2.addChild(SSnode22);
         
         //second branch of the story where the fan goes to party 
         InnerNode SSnode11= new InnerNode(id++,depthSupporteur,"Vous decidez de prendre les transports pour rentrer chez vous", EmptyNodeList);
@@ -217,8 +218,8 @@ public class Main {
         // first branch of the story where the coach prepares an intensive training session.
         InnerNode Cnode21= new InnerNode(id++,depthCoach,"Faire une autre seance d'entrainement ", EmptyNodeList);
         InnerNode Cnode22= new InnerNode(id++,depthCoach,"Donner le reste de la soiree comme repos", EmptyNodeList);
-        Cnode21.addChild(Cnode21);
-        Cnode21.addChild(Cnode22);
+        Cnode2.addChild(Cnode21);
+        Cnode2.addChild(Cnode22);
         
         //second branch of the story where the coach organizes a relaxation session 
         InnerNode Cnode11= new InnerNode(id++,depthCoach,"Vous decidez d'organiser une meditation en groupe", EmptyNodeList);
@@ -233,14 +234,14 @@ public class Main {
         InnerNode Cnode72= new InnerNode(id++,depthCoach,"La seance se passe tres bien!", EmptyNodeList);
         Cnode11.addChild(Cnode71);
         Cnode11.addChild(Cnode72);
-        //branch of the story where coach organises another training session
+        //branch of the story where coach organizes another training session
         TerminalNode Cnode4= new TerminalNode(id++,depthCoach,"Vous epuisez vos joueurs et ils ratent la competition ");
         Cnode21.addChild(Cnode4);
        //branch of the story where coach gives a break after the first training session
         TerminalNode Cnode5= new TerminalNode(id++,depthCoach++,"Vos joueurs sont bien tendus mais aussi entraines et emportent la competition! ");
         Cnode22.addChild(Cnode5);
         //level 4
-        //branch of the story where the coach organises another a group meditation session
+        //branch of the story where the coach organizes another a group meditation session
         TerminalNode Cnode41= new TerminalNode(id++,depthCoach,"Vos joueurs partent a la competition blesses et perdent!");
         Cnode71.addChild(Cnode41);
         TerminalNode Cnode42= new TerminalNode(id++,depthCoach++,"Vos joueurs partent a la competition relaxes et gagnent!");
@@ -255,7 +256,7 @@ public class Main {
         //here the id in the graphs of possibilities will represent the depth of the nodes in the graph
         //level 1 nodes
         InnerNode Jnode1= new InnerNode(id++,depthJuge,"Relire le reglement ", EmptyNodeList);
-        InnerNode Jnode2= new InnerNode(id++,depthJuge++,"Preparer le dossier du verdict: Vous trouvex une info cruciale! ", EmptyNodeList);
+        InnerNode Jnode2= new InnerNode(id++,depthJuge++,"Preparer le dossier du verdict ", EmptyNodeList);
 
         startingJuge1.addChild(Jnode2);
         startingJuge1.addChild(Jnode1);
@@ -263,20 +264,26 @@ public class Main {
         // first branch of the story where the judge reads the verdict file
         InnerNode Jnode21= new InnerNode(id++,depthJuge,"Noter l'info", EmptyNodeList);
         InnerNode Jnode22= new InnerNode(id++,depthJuge,"Ignorer l'info", EmptyNodeList);
-        Jnode21.addChild(Jnode21);
-        Jnode21.addChild(Jnode22);
+        Jnode2.addChild(Jnode21);
+        Jnode2.addChild(Jnode22);
         
         //second branch of the story where the judge reads the rules
-        InnerNode Jnode11= new InnerNode(id++,depthJuge,"Vous decidez de prendre un uber pour rentrer chez vous", EmptyNodeList);
-        InnerNode Jnode12= new InnerNode(id++,depthJuge++,"Vous decidez de rester dans la fete", EmptyNodeList);
-        Jnode1.addChild(Jnode11);
+        InnerNode Jnode11= new InnerNode(id++,depthJuge,"Vous trouvez une regle ambigue", EmptyNodeList);
+        InnerNode Jnode12= new InnerNode(id++,depthJuge++,"Vous memorisez le reglement!", EmptyNodeList);
         Jnode1.addChild(Jnode12);
+        Jnode1.addChild(Jnode11);
         //level 3
-        //branch of the story where the judge reads the rules
-        InnerNode Jnode6= new InnerNode(id++,depthJuge,"Vous trouvez une regle ambigue", EmptyNodeList);
-        Jnode12.addChild(Jnode6);
-        InnerNode Jnode7= new InnerNode(id++,depthJuge,"Vous memorisez le reglement!", EmptyNodeList);
+        //branch of the story where the judge reads the rules and find the rule
+        InnerNode Jnode6=new InnerNode(id++,depthJuge,"Vous consultez un collegue",EmptyNodeList);
+        Jnode11.addChild(Jnode6);
+        InnerNode Jnode7=new InnerNode(id++,depthJuge,"Vous interpretez la regle a votre maniere",EmptyNodeList);
         Jnode11.addChild(Jnode7);
+        //memorise the rules 
+        TerminalNode Jnode8=new TerminalNode (id++,depthJuge,"Vous vous rappelez correctment de l'info et vous jugez bien la competition");
+        Jnode12.addChild(Jnode8);
+        TerminalNode  Jnode9=new TerminalNode(id++,depthJuge,"Vous melangez les informations et vous jugez mal la comptition");
+        Jnode12.addChild(Jnode9);
+        
         //branch of the story where  the judge reads the verdict file
         TerminalNode Jnode4= new TerminalNode(id++,depthJuge,"Vous utilisez l'info pour le verdict et vous notez bien les performances des sportifs! ");
         Jnode21.addChild(Jnode4);
@@ -284,25 +291,17 @@ public class Main {
         Jnode22.addChild(Jnode41);
         //level 4
         //branch of the story where the judge reads the rules
-        InnerNode Jnode61= new InnerNode(id++,depthJuge,"Vous consultez un collegue",EmptyNodeList);
+        TerminalNode Jnode61= new TerminalNode(id++,depthJuge,"Vous obtenez une clarification et vous notez bien les performances des sportifs! ");
         Jnode6.addChild(Jnode61);
-        InnerNode Jnode62= new InnerNode(id++,depthJuge,"Vous interpretez la regle a votre maniere",EmptyNodeList);
+        TerminalNode Jnode62= new TerminalNode(id++,depthJuge,"Votre collegue vous donne la mauvaise info: vous juger mal les performances des sportifs et vous etes vires du reste des JO!");
         Jnode6.addChild(Jnode62);
-        TerminalNode Jnode71= new TerminalNode(id++,depthJuge,"Vous vous rappelez bien du reglement et vous notez bien les performances des sportifs!");
-        TerminalNode Jnode72= new TerminalNode(id++,depthJuge++,"Vous melangez des infos et vous jugez mal les performances des sportifs et vous etes vires du reste des JO!");
+        TerminalNode Jnode71= new TerminalNode(id++,depthJuge++,"Vous interpretez mal l'info: vous juger mal les performances des sportifs et vous etes vires du reste des JO!");
         Jnode7.addChild(Jnode71);
-        Jnode7.addChild(Jnode72);
-      //level 5
-      //branch of the story where the judge reads the rules
-        TerminalNode Jnode611= new TerminalNode(id++,depthJuge,"Vous obtenez une clarification et vous notez bien les performances des sportifs! ");
-        Jnode61.addChild(Jnode611);
-        TerminalNode Jnode621= new TerminalNode(id++,depthJuge++,"Votre collegue vous donne la mauvaise info: vous juger mal les performances des sportifs et vous etes vires du reste des JO!");
-        Jnode62.addChild(Jnode621);
+    
         
 
         
-       // a small simulation of the game when the player chooses to be a "sportif"
-       //This simulation does not use chanceNode YET 
+       //the game according to what the player chooses to be
         if (playerChoice==1) {
         	DecisionNode gameDecisionNode = new DecisionNode(id++, depth++, "C'est la soiree du grand match ! Que veux-tu faire ?",Snode1,Snode2);
             Node Storynode2=gameDecisionNode.chooseNext();
@@ -346,8 +345,183 @@ public class Main {
             }
      	   
         }
+        else if(playerChoice==2) {
+        	DecisionNode gameDecisionNode = new DecisionNode(id++, depth++, "C'est la soiree du grand match ! Que veux-tu faire ?",Cnode1,Cnode2);
+            Node Storynode2=gameDecisionNode.chooseNext();
+            Storynode1.setNext(Storynode2);
+            if (Storynode2.equals(Cnode2)) {// intensive training 
+            	DecisionNode gameDecisionNode1 = new DecisionNode(id++, depth++, "Vos sportifs ont finit leur seance intensive. Que veux-tu faire ensuite? ",Cnode21,Cnode22);
+            	Node Storynode3=gameDecisionNode1.chooseNext();
+            	Storynode2.setNext(Storynode3);
+            	if (Storynode3.equals(Cnode22)) {
+            		TerminalNode Storynode4=Cnode5.cloneNode(); 
+            		Storynode4.display();
+            		Storynode3.setNext(Storynode4);
+            		
+            	}else {
+            		TerminalNode Storynode4=Cnode4.cloneNode();
+            		Storynode3.setNext(Storynode4);
+            	    Storynode4.display();
+            	
+            		
+            	}
+            }else {
+            	DecisionNode gameDecisionNode1 = new DecisionNode(id++,depth++, "Vous allez organiser une seance de relaxation: ",Cnode11,Cnode12);
+            	Node Storynode3=gameDecisionNode1.chooseNext();
+            	Storynode2.setNext(Storynode3);
+            	if (Storynode3.equals(Cnode12)) { 
+            		Storynode3.display();
+            		//masseuse
+            		TerminalNode Storynode4=Cnode6.cloneNode();
+            		Storynode4.display();
+            		Storynode3.setNext(Storynode4);
+            	}
+            	else {//groupe meditation
+            		Storynode3.display();
+            		//Random event: create a list
+            		ArrayList<Node> aleatoire=new ArrayList<Node>();
+            		aleatoire.add(Cnode71);
+            		aleatoire.add(Cnode72);
+            		ChanceNode gameChanceNode1 = new ChanceNode(id++, depth++, "",aleatoire);
+            		Node Storynode4=gameChanceNode1.chooseNext();
+            		Storynode4.display();
+            		Storynode3.setNext(Storynode4);
+            		if(Storynode4.equals(Cnode71)) {
+            			TerminalNode Storynode5=Cnode41.cloneNode();
+            			Storynode4.setNext(Storynode5);
+            			Storynode5.display();
+            			
+            		}else {
+            			TerminalNode Storynode5=Cnode42.cloneNode();
+            			Storynode4.setNext(Storynode5);
+            			Storynode5.display();
+            		}
+            	}
+            }
+        }
+        else if(playerChoice==3) {
+                 	DecisionNode gameDecisionNode = new DecisionNode(id++, depth++, "C'est la soiree du grand match ! Que veux-tu faire ?",Jnode1,Jnode2);
+                     Node Storynode2=gameDecisionNode.chooseNext();
+                     Storynode1.setNext(Storynode2);
+                     if (Storynode2.equals(Jnode2)) {// read verdict 
+                     	DecisionNode gameDecisionNode1 = new DecisionNode(id++, depth++, "Vous trouvez une info cruciale. Que veux-tu faire? ",Jnode21,Jnode22);
+                     	Node Storynode3=gameDecisionNode1.chooseNext();
+                     	Storynode2.setNext(Storynode3);
+                     	if (Storynode3.equals(Jnode22)) {
+                     		TerminalNode Storynode4=Jnode41.cloneNode(); 
+                     		Storynode4.display();
+                     		Storynode3.setNext(Storynode4);
+                     		
+                     	}else {
+                     		TerminalNode Storynode4=Jnode4.cloneNode();
+                     		Storynode3.setNext(Storynode4);
+                     	    Storynode4.display();
+                     
+                     	}
+                     }else { //read rules
+                     	DecisionNode gameDecisionNode1 = new DecisionNode(id++,depth++, "En lisant le reglement est ce que vous: ",Jnode11,Jnode12);
+                     	Node Storynode3=gameDecisionNode1.chooseNext();
+                     	Storynode2.setNext(Storynode3);
+                     	if (Storynode3.equals(Jnode11)) { //ambiguous rule
+                     		Storynode3.display();
+                     		DecisionNode gameDecisionNode2=new DecisionNode(id++, depth++, " Que veux-tu faire ?",Jnode6,Jnode7);
+                     		Node Storynode4=gameDecisionNode2.chooseNext();
+                     		if (Storynode4.equals(Jnode6)) {//consult a colleague
+                     			Storynode4.display();
+                     			//Random event: create a list
+                        		ArrayList<Node> aleatoire=new ArrayList<Node>();
+                        		aleatoire.add(Jnode61);
+                        		aleatoire.add(Jnode62);
+                        		ChanceNode gameChanceNode1 = new ChanceNode(id++, depth++, "",aleatoire);
+                        		Node Storynode5=gameChanceNode1.chooseNext();
+                        		Storynode5.display();
+                        		Storynode4.setNext(Storynode5);
+                        		
+                         	}else {// interpret it how the player wants
+                         		TerminalNode Storynode5=Jnode71.cloneNode();
+                         		Storynode4.setNext(Storynode5);
+                         	    Storynode5.display();
+                         	}
+                     	}
+                     	else {//memorise the rules 
+                     		ArrayList<Node> aleatoire=new ArrayList<Node>();
+                    		aleatoire.add(Jnode9);
+                    		aleatoire.add(Jnode8);
+                    		ChanceNode gameChanceNode1 = new ChanceNode(id++, depth++, "",aleatoire);
+                    		Node Storynode4=gameChanceNode1.chooseNext();
+                    		Storynode4.display();
+                    		Storynode3.setNext(Storynode4);
+                     			
+                     		}
          
-        scanner.close();
+
+                     }
+        }
+        else {//player is a "supporteur" 
+        	DecisionNode gameDecisionNode = new DecisionNode(id++, depth++, "C'est la soiree du grand match ! Que veux-tu faire ?",SSnode1,SSnode2);
+            Node Storynode2=gameDecisionNode.chooseNext();
+            Storynode1.setNext(Storynode2);
+            if (Storynode2.equals(SSnode2)) {// discover Paris
+            	DecisionNode gameDecisionNode1 = new DecisionNode(id++, depth++, "Que veux-tu visiter? ",SSnode21,SSnode22);
+        
+            	Node Storynode3=gameDecisionNode1.chooseNext();
+            	if ( Storynode3.equals(SSnode21)) {
+            		  Event Tour= new ImageNode(basicEvent1,"tour.jpeg");
+            		  Tour.display();
+            		
+            	}else {
+            		 Event Arc= new ImageNode(basicEvent1,"arc.png");
+           		     Arc.display();
+            		
+            		
+            	}
+            	Storynode2.setNext(Storynode3);
+            	InnerNode Storynode4=SSnode4.cloneNode(); 
+            	Storynode3.setNext(Storynode4);
+            	Storynode4.display();
+            	TerminalNode Storynode5=SSnode41.cloneNode(); 
+            	Storynode4.setNext(Storynode5);
+            	Storynode5.display();
+            	
+            
+            }else { //goes to party
+            	DecisionNode gameDecisionNode1 = new DecisionNode(id++,depth++, "Vous etes dans la fete. Que veux-tu faire ensuite? ",SSnode11,SSnode12);
+            	Node Storynode3=gameDecisionNode1.chooseNext();
+            	Storynode2.setNext(Storynode3);
+            	if (Storynode3.equals(SSnode11)) {//go back home using public transportation
+            		Storynode3.display();
+            		//Random event: create a list
+               		ArrayList<Node> aleatoire=new ArrayList<Node>();
+               		aleatoire.add(SSnode111);
+               		aleatoire.add(SSnode112);
+               		ChanceNode gameChanceNode1 = new ChanceNode(id++, depth++, "",aleatoire);
+               		Node Storynode4=gameChanceNode1.chooseNext();
+               		Storynode4.display();
+               		Storynode3.setNext(Storynode4);
+               		if (Storynode4.equals(SSnode111)) {//public transport is punctual
+               			TerminalNode Storynode5=SSnode1111.cloneNode();
+                		Storynode4.setNext(Storynode5);
+                	    Storynode5.display();
+               			
+               		}
+               		else {
+               			TerminalNode Storynode5=SSnode1121.cloneNode();
+                		Storynode4.setNext(Storynode5);
+                	    Storynode5.display();
+               		}
+            	}
+            	else {//player stays at the party
+            		TerminalNode Storynode4=SSnode121.cloneNode();
+            		Storynode3.setNext(Storynode4);
+            	    Storynode4.display();
+               		
+                	}
+            	}
+        }	
+        chosenCharacter.EndOfGameTrivia(chosenSport);
+                	
+         
+       scanner.close();
  
     }
 }
