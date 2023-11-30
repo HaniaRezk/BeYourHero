@@ -1,6 +1,6 @@
 package univers;
 
-public abstract class PersonnageDeBase {
+public abstract class PersonnageDeBase implements Player {
 	private String nom;
 	private Sport sport;
 	
