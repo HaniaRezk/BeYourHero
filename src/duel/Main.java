@@ -26,7 +26,15 @@ public class Main {
         int id=0;
         int depth=0;
         List<Node> EmptyNodeList= new ArrayList<>(); // to initialize all the inner nodes.
-        
+        // Create a map of countries
+        Map1 countries = new Map1();
+        countries.add(1, "France");
+        countries.add(2, "China");
+        countries.add(3, "US");
+        countries.add(4, "UK");
+        countries.add(5, "Vietnam");
+       
+   
         // Creation of some basic nodes to simulate the start of the story
         InnerNode bienvenue = new InnerNode(id++,depth++, "Bienvenue aux JO 2025.", EmptyNodeList);
         bienvenue.display();
@@ -56,6 +64,17 @@ public class Main {
     
         Sport chosenSport = Sport.values()[chosenSportIndex - 1];
         //give the player options and let him choose his character
+        
+        System.out.println("Choississez le Pays que vous voulez represente:");
+        countries.display();
+        int choice = scanner.nextInt();
+        if (countries.contains(choice)) {
+            String chosenCountry = countries.get(choice);
+            System.out.println("Vous avez choisi: " + chosenCountry);
+        } else {
+            System.out.println("Choix Invalide.");
+        }
+
         System.out.println("Choisis ton rôle :");
         System.out.println("1. Sportif");
         Event imageSportif= new ImageNode(basicEvent1,"sportif.jpeg");
