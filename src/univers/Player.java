@@ -1,12 +1,22 @@
 package univers;
 
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import duel.Scan;
-
+/**
+ * The Player interface represents a generic player in the context of a sports game or trivia.
+ * It provides methods for playing trivia games in different sports.
+ */
 public interface Player {
+	  /**
+     * Plays a basketball trivia game.
+     *
+     * @return The score achieved in the trivia game.
+     */
 	default int BasketballTrivia() {
+		try {
 		ArrayListString answers=new ArrayListString();
 		Scanner scanner =Scan.getScanner();
 			 System.out.println("A chaque fois rentrez la lettre de la bonne reponse");
@@ -71,11 +81,23 @@ public interface Player {
 		        System.out.println("Votre score est:"+ correctCount);
 		        System.out.println("Les bonnes reponses sont");
 		        CorrectAnswers.display();
+		    
 		        return correctCount;
+		}catch(InputMismatchException e) {
+			 System.out.println("Erreur de saisie. Vous Sortez du jeu.");
+		     return 0;
+			
+		}
 	 
 		
 	};
+	  /**
+     * Plays a Football trivia game.
+     *
+     * @return The score achieved in the trivia game.
+     */
     default int FootballTrivia() {
+    	try {
     	ArrayListString answers=new ArrayListString();
 		  Scanner scanner =Scan.getScanner();
 			 System.out.println("A chaque fois rentrez la lettre de la bonne reponse");
@@ -135,9 +157,20 @@ public interface Player {
 		        System.out.println("Les bonnes reponses sont");
 		        CorrectAnswers.display();
 		        return correctCount;
+    	}catch(InputMismatchException e) {
+			 System.out.println("Erreur de saisie. Vous Sortez du jeu.");
+		     return 0;
+			
+		}
     	
     };
+    /**
+     * Plays a tennis trivia game.
+     *
+     * @return The score achieved in the trivia game.
+     */
     default int TennisTrivia() {
+    	try {
     	ArrayListString answers=new ArrayListString();
 		  Scanner scanner =Scan.getScanner();
 			 System.out.println("A chaque fois rentrez la lettre de la bonne reponse");
@@ -188,9 +221,22 @@ public interface Player {
 		        System.out.println("Les bonnes reponses sont");
 		        CorrectAnswers.display();
 		        return correctCount;
+    	}catch(InputMismatchException e) {
+			 System.out.println("Erreur de saisie. Vous Sortez du jeu.");
+		     return 0;
+			
+		}
     	
     };
-   default int SwimmingTrivia() {ArrayListString answers=new ArrayListString();
+    
+    /**
+     * Plays a Swimmming trivia game.
+     *
+     * @return The score achieved in the trivia game.
+     */
+   default int SwimmingTrivia() {
+	   try {
+	   ArrayListString answers=new ArrayListString();
 	  Scanner scanner =Scan.getScanner();
 		
 		 System.out.println("A chaque fois rentrez la lettre de la bonne reponse");
@@ -241,9 +287,21 @@ public interface Player {
 	        CorrectAnswers.display();
 	        
 	        return correctCount;
+	   }catch(InputMismatchException e) {
+			 System.out.println("Erreur de saisie. Vous Sortez du jeu.");
+		     return 0;
+			
+		}
    
    }
+   /**
+    * Plays a trivia game based on the specified sport.
+    *
+    * @param sport The sport for which the trivia game is played.
+    * @return The score achieved in the trivia game.
+    */
 	default int play(Sport sport) {
+		 try {
 		 switch (sport) {
 	        case TENNIS:
 	            System.out.println("Bienvenue au Trivia de Tennis!");
@@ -261,19 +319,37 @@ public interface Player {
 	            System.out.println("Choix de sport invalide");
 	            return 0; 
 		 }
+		 }
+		 catch(InputMismatchException e){
+			 System.out.println("Choix de sport invalide");
+		      return 0;
+			 
+			 
+		 }
 		
 		
 	}
+	
+	/**
+     * Invites the player to play a trivia game at the end of the main game.
+     *
+     * @param sport The sport for which the trivia game is played.
+     * @return The score achieved in the trivia game, or 0 if the player chooses not to play.
+     */
 	default int EndOfGameTrivia(Sport sport) {
 		 Scanner scanner =Scan.getScanner();
 		 System.out.println("Est ce que vous voulez jouer une partie de trivia avant de finir le jeu?: 0 pour oui et 1 pour non");
-		 int rep= scanner.nextInt();
-		 if (rep==0) {
-			 return play(sport);
-			 
-		 }else {
-			 return 0;
-		 }
+		 try {
+		        int rep = scanner.nextInt();
+		        if (rep == 0) {
+		            return play(sport);
+		        } else {
+		            return 0;
+		        }
+		    } catch (InputMismatchException e) {
+		        System.out.println("Erreur de saisie. Vous Sortez du jeu.");
+		        return 0;
+		    }
 		
 	}
 

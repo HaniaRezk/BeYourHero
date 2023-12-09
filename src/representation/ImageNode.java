@@ -6,15 +6,35 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+/**
+ * The ImageNode class represents an event in a game tree that includes an image.
+ */
 
 public class ImageNode extends DecorateurEvent {
+	/**
+     * The file path to the image.
+     */
     private String imagePath;
 
+    /**
+     * Constructs an ImageNode with the specified decoratedEvent and image path.
+     *
+     * @param decoratedEvent The Event to be decorated.
+     * @param imagePath      The file path to the image.
+     */
     public ImageNode(Event decoratedEvent, String imagePath) {
         super(decoratedEvent);
         this.imagePath = imagePath;
     }
-    // Implementation thanks to Internet search and documentation
+    
+    
+    /**
+     * Loads an image from the specified file path.
+     * Implementation thanks to Internet search and documentation.
+     *
+     * @param filePath The file path of the image.
+     * @return The loaded BufferedImage, or null if an error occurs.
+     */
     private static BufferedImage loadImage(String filePath) {
         try {
             return ImageIO.read(new File(filePath));
@@ -23,6 +43,10 @@ public class ImageNode extends DecorateurEvent {
             return null;
         }
     }
+    
+    /**
+     * Displays the image in a Swing JFrame and delegates to the decoratedEvent for further display.
+     */
     @Override
     public void display() {
         BufferedImage image = loadImage(imagePath);
@@ -39,9 +63,5 @@ public class ImageNode extends DecorateurEvent {
         }
         super.display();
     }
-    @Override
-    public Event chooseNext() {
-        System.out.println("Choosing next event with image");
-        return super.chooseNext();
-    }
+   
 }

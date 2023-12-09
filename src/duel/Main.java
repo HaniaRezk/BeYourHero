@@ -1,8 +1,9 @@
 package duel;
 import java.util.Scanner;
-
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import univers.PersonnageDeBase;
 import univers.Sport;
@@ -19,6 +20,7 @@ import univers.Coach;
 import univers.Sportif;
 import univers.Juge;
 import univers.Supporteur;
+import univers.Map1;
 
 public class Main {
 	public static void main(String[] args) {
@@ -26,6 +28,7 @@ public class Main {
         int id=0;
         int depth=0;
         List<Node> EmptyNodeList= new ArrayList<>(); // to initialize all the inner nodes.
+        
         // Create a map of countries
         Map1 countries = new Map1();
         countries.add(1, "France");
@@ -36,7 +39,7 @@ public class Main {
        
    
         // Creation of some basic nodes to simulate the start of the story
-        InnerNode bienvenue = new InnerNode(id++,depth++, "Bienvenue aux JO 2025.", EmptyNodeList);
+        InnerNode bienvenue = new InnerNode(id++,depth++, "Bienvenue aux JO 2024.", EmptyNodeList);
         bienvenue.display();
         Event basicEvent1= new InnerNode(id++,0,"",EmptyNodeList);
         Event soundEvent = new SoundNode(basicEvent1, "essai.wav");
@@ -47,33 +50,62 @@ public class Main {
         
         InnerNode Storynode1 = new InnerNode(id++,depth++,"On est en juillet 2024 a Paris, et t'as la chance de participer a l'evenement sportif le plus important au monde. Vous allez choisir le personnage que vous souhaitez etre: un juge , un supporteur, un coach ou un sportif et le sport que vous desirez, vous allez ensuite avoir la possibilite de faire des choix et determiner l'issue de votre propre histoire",EmptyNodeList);
         Storynode1.display();
-        System.out.print("Choisis le nom de ton personnage: ");
-        String playerName = scanner.nextLine();        
+        String playerName = "Julie";
+        try {
+            System.out.print("Choisis le nom de ton personnage: ");
+            playerName = scanner.nextLine();
+
+        } catch ( NoSuchElementException | IllegalStateException exception) {
+            System.out.println("Une erreur est survenue. Le nom du personnage est défini par défaut à 'Julie'");
+            exception.printStackTrace();
+        }
+            
         
         
         //display all the sport choices for the player to choose
         System.out.println("Choisissez votre sport");
         Sport.displayAllSports();
+        Sport chosenSport=Sport.TENNIS; //default value of sport
+       try {
+    	   int chosenSportIndex = scanner.nextInt();
+    	   if (!(chosenSportIndex >= 1 && chosenSportIndex <= Sport.values().length)) {
+    		   throw new InputException("Choix non valide!: Le Tennis est choisi par defaut");
+               
+    	   }
+    
+    	   chosenSport = Sport.values()[chosenSportIndex - 1];
+    	   
+       }catch (InputMismatchException e) {
+   	    	scanner.nextLine(); // Consume the invalid input 
+   	    	System.out.println("Erreure est survenue: Le Tennis est choisi par defaut");
+   	   }catch( IllegalArgumentException| NoSuchElementException | IllegalStateException e) {
+    	   System.out.println("Erreure est survenue: Le Tennis est choisi par defaut");
+    	   e.printStackTrace();
+    	  
+       } 
        
-       int chosenSportIndex = scanner.nextInt();
-       if (!(chosenSportIndex >= 1 && chosenSportIndex <= Sport.values().length)) {
-    	   System.out.println("Choix non valide");
-           System.exit(0);
-    
-       }//exception?
-    
-        Sport chosenSport = Sport.values()[chosenSportIndex - 1];
+       
         //give the player options and let him choose his character
-        
         System.out.println("Choississez le Pays que vous voulez represente:");
         countries.display();
-        int choice = scanner.nextInt();
-        if (countries.contains(choice)) {
-            String chosenCountry = countries.get(choice);
-            System.out.println("Vous avez choisi: " + chosenCountry);
-        } else {
-            System.out.println("Choix Invalide.");
+        try {
+        	int choice = scanner.nextInt();
+            if (countries.contains(choice)) {
+                String chosenCountry = countries.get(choice);
+                System.out.println("Vous avez choisi: " + chosenCountry);
+            } else {
+            	 throw new InputException("Choix Invalide: Vous representez la France ");
+            }
+         }catch (InputMismatchException e) {
+           	    scanner.nextLine(); // Consume the invalid input 
+           	    System.out.println("Erreure: Vous representez la France par defaut");}
+          catch( IllegalArgumentException| NoSuchElementException | IllegalStateException e) {
+     	   System.out.println("Erreure: Vous representez la France par defaut");
+     	   e.printStackTrace();
+     	
+     	   
         }
+      
 
         System.out.println("Choisis ton rôle :");
         System.out.println("1. Sportif");
@@ -105,33 +137,45 @@ public class Main {
         System.out.println("4. Supporteur");
         Event imageSupporteur= new ImageNode(basicEvent1,"supporteur.jpeg");
         imageSupporteur.display();
-        
-        int playerChoice = scanner.nextInt();
-        //if the choice of the player is not valid
-        if (!(playerChoice >= 1 && playerChoice <= 4)) {
-        	System.out.println("Le choix non valide");
-        	System.exit(0);
-        	}
-        
-        PersonnageDeBase chosenCharacter = null;
+        PersonnageDeBase chosenCharacter = new Sportif(playerName, chosenSport, 0);
+        int playerChoice=1; //Default value in case an error happens
+        try {
+        	  playerChoice = scanner.nextInt();
+             //if the choice of the player is not valid
+             if (!(playerChoice >= 1 && playerChoice <= 4)) {
+            	 throw new InputException("Choix non valide: le personnage par defaut vous serez affecte");
+             	
+             	}
 
-        if (playerChoice == 1) {
-            System.out.print("Choisis ton niveau: 0,1,2 ");
-            int level=  scanner.nextInt();
-            if (!(level >= 0 && level <= 2)) {
-            	System.out.println("Le choix non valide");
-            	System.exit(0);
-            	}
-            chosenCharacter = new Sportif(playerName, chosenSport, level);
-        } else if (playerChoice == 2) {
-            chosenCharacter = new Coach(playerName, chosenSport); 
+             if (playerChoice == 1) {
+                 System.out.print("Choisis ton niveau: 0,1,2 ");
+                 int level=  scanner.nextInt();
+                 if (!(level >= 0 && level <= 2)) {
+                	 level=0;
+                	 throw new InputException("Choix non valide: Niveau 0 vous affecte par defaut");
+                	 
+            
+                 	}
+                 chosenCharacter = new Sportif(playerName, chosenSport, level);
+             } else if (playerChoice == 2) {
+                 chosenCharacter = new Coach(playerName, chosenSport); 
+             }
+              else if(playerChoice==3) {
+                  chosenCharacter = new Juge(playerName, chosenSport); 	
+             }
+              else if(playerChoice==4) {
+                  chosenCharacter = new Supporteur(playerName, chosenSport); 	
+             }
+        	
+        }catch (InputMismatchException e) {
+       	    scanner.nextLine(); // Consume the invalid input 
+       	    System.out.println("Erreure de saisie: Vous etes un personnage par defaut");}
+        catch ( IllegalArgumentException| NoSuchElementException | IllegalStateException e) {
+        	System.out.println("Vous etes un personnage par defaut");
+        	 e.printStackTrace();
+        	
         }
-         else if(playerChoice==3) {
-             chosenCharacter = new Juge(playerName, chosenSport); 	
-        }
-         else if(playerChoice==4) {
-             chosenCharacter = new Supporteur(playerName, chosenSport); 	
-        }
+       
         System.out.println("Le personnage choisi: "+ "\n" + chosenCharacter.toString());
         
         
@@ -538,8 +582,11 @@ public class Main {
             	}
         }	
         chosenCharacter.EndOfGameTrivia(chosenSport);
-                	
-         
+        Event closing= new ImageNode(basicEvent1, "closing1.jpeg");
+        closing.display();
+        InnerNode closing1 = new InnerNode(id++,depth++, "C'est la fin des jeux! Au revoir.", EmptyNodeList);
+        closing1.display();
+                
        scanner.close();
  
     }
