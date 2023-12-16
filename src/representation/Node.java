@@ -1,4 +1,7 @@
 package representation;
+
+import java.io.Serializable;
+
 /**
  * The Node class is an abstract class representing a node in a game tree.
  * It implements the Event interface and provides basic functionality for
@@ -6,7 +9,7 @@ package representation;
  * The exceptions in Node and its subclasses are going to mainly concern the ChooseNext methods
  */
 
-public abstract class Node implements Event{
+public abstract class Node implements Event, Serializable{
 	/**
      * The unique identifier of the node.
      */

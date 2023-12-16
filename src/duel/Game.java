@@ -22,7 +22,8 @@ import representation.ChanceNode;
 
 public class Game implements Serializable{
     private static final long serialVersionUID = 1L;
-	private int id;
+
+    
     private Node currentStoryNode;
     private PersonnageDeBase chosenCharacter;
     private Sport chosenSport;
@@ -30,19 +31,36 @@ public class Game implements Serializable{
     Event basicEvent1= new InnerNode(00,0,"",EmptyNodeList);
     ArrayList<Node> aleatoire=new ArrayList<Node>();
 
-    public Game(int id, PersonnageDeBase chosenCharacter, Sport chosenSport) {
-    	this.id=id;
+    public Game( PersonnageDeBase chosenCharacter, Sport chosenSport) {
          this.chosenCharacter = chosenCharacter;
         this.chosenSport = chosenSport;
+        this.currentStoryNode=new InnerNode(0,0,"", EmptyNodeList);
     }
 
-    public void start() {
+    public PersonnageDeBase getChosenCharacter() {
+		return chosenCharacter;
+	}
+
+	public void setChosenCharacter(PersonnageDeBase chosenCharacter) {
+		this.chosenCharacter = chosenCharacter;
+	}
+
+	public Node getCurrentStoryNode() {
+		return currentStoryNode;
+	}
+
+	public void setCurrentStoryNode(Node currentStoryNode) {
+		this.currentStoryNode = currentStoryNode;
+	}
+
+	public void start() {
     	 InnerNode bienvenue = new InnerNode(0,0, "Bienvenue aux JO 20244.", EmptyNodeList);
          bienvenue.display();
          Event soundEvent = new SoundNode(basicEvent1, "essai.wav");
          soundEvent.display();
          Event imageEvent= new ImageNode(basicEvent1,"bienvenue.png");
          imageEvent.display();
+        
     }
 
     public Node playNext( int id1, int depth,String story,Node node1, Node node2) {
@@ -67,13 +85,23 @@ public class Game implements Serializable{
          closing1.display();
     }
     
-    public void saveGame(String filename) {
+    public Sport getChosenSport() {
+		return chosenSport;
+	}
+
+	public void setChosenSport(Sport chosenSport) {
+		this.chosenSport = chosenSport;
+	}
+
+	public void saveGame(String filename) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
             oos.writeObject(this);
             System.out.println("Partie sauvegardée avec succès !");
+         
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
     }
 
     public static Game loadGame(String filename) {
@@ -82,8 +110,9 @@ public class Game implements Serializable{
             System.out.println("Partie chargée avec succès !");
             return loadedGame;
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+        	 System.out.println("fichier existe pas!");
             return null;
         }
     }
+    
 }

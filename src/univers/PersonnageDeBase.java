@@ -1,11 +1,14 @@
 package univers;
+
+import java.io.Serializable;
+
 /**
  * The PersonnageDeBase class is an abstract class representing a basic character in the context of the Olympics.
  * It implements the Player interface and provides common functionality for all characters,
  * such as storing the character's name and the sport they are associated with.
  */
 
-public abstract class PersonnageDeBase implements Player {
+public abstract class PersonnageDeBase implements Player, Serializable {
 	 /**
      * The name of the character.
      */

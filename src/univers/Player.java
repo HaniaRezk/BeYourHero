@@ -26,7 +26,7 @@ public interface Player {
 		        System.out.println("b) 1900");
 		        System.out.println("c) 1923");
 		        
-		        scanner.nextLine();
+	
 		        String userGuess = scanner.nextLine();
 		        answers.add(userGuess);
 		        
@@ -105,7 +105,7 @@ public interface Player {
 		        System.out.println("a) 1928");
 		        System.out.println("b) 1934");
 		        System.out.println("c) 1950");
-		        scanner.nextLine();
+		       
 		        String userGuess = scanner.nextLine();
 		        answers.add(userGuess);
 		        
@@ -178,7 +178,7 @@ public interface Player {
 		        System.out.println("a) 1896");
 		        System.out.println("b) 1900");
 		        System.out.println("c) 1924");
-		        scanner.nextLine();
+		      
 		        String userGuess = scanner.nextLine();
 		        answers.add(userGuess);
 		        
@@ -244,7 +244,7 @@ public interface Player {
 	        System.out.println("a) Michael Phelps");
 	        System.out.println("b) Cesar Cielo");
 	        System.out.println("c) Usain Bolt");
-	        scanner.nextLine();
+	        
 	        String userGuess = scanner.nextLine();
 	        answers.add(userGuess);
 	        
@@ -341,6 +341,7 @@ public interface Player {
 		 System.out.println("Est ce que vous voulez jouer une partie de trivia avant de finir le jeu?: 0 pour oui et 1 pour non");
 		 try {
 		        int rep = scanner.nextInt();
+		        scanner.nextLine();
 		        if (rep == 0) {
 		            return play(sport);
 		        } else {
