@@ -9,6 +9,7 @@ import java.util.Random;
 
 public class ChanceNode extends Node{
 
+	private static final long serialVersionUID = 1L;
 	private List<Node> possibilites;
     private Random random;
     

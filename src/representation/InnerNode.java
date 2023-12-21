@@ -9,7 +9,8 @@ import java.util.List;
 
 
 public class InnerNode extends Node {
-	 /**
+	 private static final long serialVersionUID = 1L;
+	/**
      * The list of child nodes representing different possible paths or choices.
      */
 	private List<Node> children;

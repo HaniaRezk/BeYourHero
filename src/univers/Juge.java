@@ -5,6 +5,8 @@ package univers;
  * specific to judges.
  */
 public class Juge extends PersonnageDeBase {
+	private static final long serialVersionUID = 1L;
+
 	/**
      * Constructs a Juge with the specified name and sport.
      *

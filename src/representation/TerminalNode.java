@@ -5,7 +5,9 @@ package representation;
  */
 
 public class TerminalNode extends Node{
-	 /**
+	 private static final long serialVersionUID = 1L;
+
+	/**
      * Constructs a TerminalNode with the specified ID, depth, and description.
      *
      * @param id          The unique identifier of the node.

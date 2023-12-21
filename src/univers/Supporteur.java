@@ -5,6 +5,8 @@ package univers;
  * specific to fans.
  */
 public class Supporteur extends PersonnageDeBase{
+	private static final long serialVersionUID = 1L;
+
 	/**
      * Constructs a Supporteur with the specified name and supported sport.
      *

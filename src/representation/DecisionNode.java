@@ -12,6 +12,7 @@ import duel.Scan;
  */
 
 public class DecisionNode extends Node{
+	private static final long serialVersionUID = 1L;
 	private Node choix1;
 	private Node choix2;
 	

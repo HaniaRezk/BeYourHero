@@ -5,6 +5,8 @@ package univers;
  * specific to coaches.
  */
 public class Coach extends PersonnageDeBase {
+	private static final long serialVersionUID = 1L;
+
 	/**
      * Constructs a Coach with the specified name and sport.
      *

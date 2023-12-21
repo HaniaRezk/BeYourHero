@@ -9,7 +9,9 @@ import java.io.Serializable;
  */
 
 public abstract class PersonnageDeBase implements Player, Serializable {
-	 /**
+	 private static final long serialVersionUID = 1L;
+
+	/**
      * The name of the character.
      */
 	private String nom;

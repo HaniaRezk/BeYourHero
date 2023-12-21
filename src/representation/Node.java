@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 
 public abstract class Node implements Event, Serializable{
+	private static final long serialVersionUID = 1L;
+
 	/**
      * The unique identifier of the node.
      */

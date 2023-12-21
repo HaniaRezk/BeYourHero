@@ -6,6 +6,7 @@ package univers;
  */
 
 public class Sportif extends PersonnageDeBase{
+	private static final long serialVersionUID = 1L;
 	/**
      * The level of the athlete.
      */
